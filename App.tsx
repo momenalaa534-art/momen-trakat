@@ -7,62 +7,44 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import { ComponentType, lazy, Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Home, Compass, Trophy, Star, Mic, MessageSquare, LayoutGrid } from 'lucide-react';
 import { useStore, Screen } from './store';
 
-type NamedComponentModule<T extends ComponentType<any>, K extends string> = Record<K, T>;
-
-function lazyNamed<T extends ComponentType<any>, K extends string>(
-  loader: () => Promise<NamedComponentModule<T, K>>,
-  exportName: K,
-) {
-  return lazy(async () => ({ default: (await loader())[exportName] }));
-}
-
-const HomeScreen = lazyNamed(() => import('./HomeScreen'), 'HomeScreen');
-const AthkarScreen = lazyNamed(() => import('./AthkarScreen'), 'AthkarScreen');
-const AthkarCategoriesScreen = lazyNamed(() => import('./AthkarCategoriesScreen'), 'AthkarCategoriesScreen');
-const TasbihScreen = lazyNamed(() => import('./TasbihScreen'), 'TasbihScreen');
-const KidsHomeScreen = lazyNamed(() => import('./KidsScreen'), 'KidsHomeScreen');
-const QuranScreen = lazyNamed(() => import('./QuranScreen'), 'QuranScreen');
-const TasmeeScreen = lazyNamed(() => import('./TasmeeScreen'), 'TasmeeScreen');
-const HadithQuizScreen = lazyNamed(() => import('./HadithQuizScreen'), 'HadithQuizScreen');
-const ChallengesScreen = lazyNamed(() => import('./ChallengesScreen'), 'ChallengesScreen');
-const RewardsScreen = lazyNamed(() => import('./RewardsScreen'), 'RewardsScreen');
-const AIDuaScreen = lazyNamed(() => import('./AIDuaScreen'), 'AIDuaScreen');
-const FullQuranScreen = lazyNamed(() => import('./FullQuranScreen'), 'FullQuranScreen');
-const SurahScreen = lazyNamed(() => import('./SurahScreen'), 'SurahScreen');
-const PrayerTimesScreen = lazyNamed(() => import('./PrayerTimesScreen'), 'PrayerTimesScreen');
-const HadithLibraryScreen = lazyNamed(() => import('./HadithLibraryScreen'), 'HadithLibraryScreen');
-const IslamicStoriesScreen = lazyNamed(() => import('./IslamicStoriesScreen'), 'IslamicStoriesScreen');
-const MoreScreen = lazyNamed(() => import('./MoreScreen'), 'MoreScreen');
-const OnThisDayScreen = lazyNamed(() => import('./OnThisDayScreen'), 'OnThisDayScreen');
-const QiblaScreen = lazyNamed(() => import('./QiblaScreen'), 'QiblaScreen');
-const CalendarScreen = lazyNamed(() => import('./CalendarScreen'), 'CalendarScreen');
-const FlightPrayerScreen = lazyNamed(() => import('./FlightPrayerScreen'), 'FlightPrayerScreen');
-const KhatmahScreen = lazyNamed(() => import('./KhatmahScreen'), 'KhatmahScreen');
-const HappinessWheelScreen = lazyNamed(() => import('./HappinessWheelScreen'), 'HappinessWheelScreen');
-const MemorizationScreen = lazyNamed(() => import('./MemorizationScreen'), 'MemorizationScreen');
-const SettingsDrawer = lazyNamed(() => import('./SettingsDrawer'), 'SettingsDrawer');
+import { HomeScreen } from './screens/HomeScreen';
+import { AthkarScreen } from './screens/AthkarScreen';
+import { AthkarCategoriesScreen } from './screens/AthkarCategoriesScreen';
+import { TasbihScreen } from './screens/TasbihScreen';
+import { KidsHomeScreen } from './screens/KidsScreen';
+import { QuranScreen } from './screens/QuranScreen';
+import { TasmeeScreen } from './screens/TasmeeScreen';
+import { HadithQuizScreen } from './screens/HadithQuizScreen';
+import { ChallengesScreen } from './screens/ChallengesScreen';
+import { RewardsScreen } from './screens/RewardsScreen';
+import { AIDuaScreen } from './screens/AIDuaScreen';
+import { FullQuranScreen } from './screens/FullQuranScreen';
+import { SurahScreen } from './screens/SurahScreen';
+import { PrayerTimesScreen } from './screens/PrayerTimesScreen';
+import { HadithLibraryScreen } from './screens/HadithLibraryScreen';
+import { IslamicStoriesScreen } from './screens/IslamicStoriesScreen';
+import { MoreScreen } from './screens/MoreScreen';
+import { OnThisDayScreen } from './screens/OnThisDayScreen';
+import { QiblaScreen } from './screens/QiblaScreen';
+import { CalendarScreen } from './screens/CalendarScreen';
+import { FlightPrayerScreen } from './screens/FlightPrayerScreen';
+import { KhatmahScreen } from './screens/KhatmahScreen';
+import { TadabburScreen } from './screens/TadabburScreen';
+import { HappinessWheelScreen } from './screens/HappinessWheelScreen';
+import { MemorizationScreen } from './screens/MemorizationScreen';
+import { SettingsDrawer } from './components/SettingsDrawer';
 import { useTranslation } from './i18n';
-import { useAthkarNotifications } from './useAthkarNotifications';
-import { useWirdReminder } from './useWirdReminder';
-import { useFocusMode } from './useFocusMode';
-import { usePrayerNotifications } from './usePrayerNotifications';
-const OnboardingScreen = lazyNamed(() => import('./OnboardingScreen'), 'OnboardingScreen');
-import { useChallengeSync } from './useChallengeSync';
-
-
-function LoadingFallback() {
-  return (
-    <div className="flex h-full w-full items-center justify-center bg-dark text-gold" role="status" aria-live="polite">
-      <div className="h-10 w-10 animate-spin rounded-full border-2 border-gold/25 border-t-gold" />
-      <span className="sr-only">Loading</span>
-    </div>
-  );
-}
+import { useAthkarNotifications } from './hooks/useAthkarNotifications';
+import { useWirdReminder } from './hooks/useWirdReminder';
+import { useFocusMode } from './hooks/useFocusMode';
+import { usePrayerNotifications } from './hooks/usePrayerNotifications';
+import { OnboardingScreen } from './screens/OnboardingScreen';
+import { useChallengeSync } from './hooks/useChallengeSync';
 
 export default function App() {
   const currentScreen = useStore((s) => s.currentScreen);
@@ -128,6 +110,7 @@ export default function App() {
       case 'challenges': return <ChallengesScreen />;
       case 'rewards': return <RewardsScreen />;
       case 'ai': return <AIDuaScreen />;
+      case 'tadabbur': return <TadabburScreen />;
       case 'full_quran': return <FullQuranScreen />;
       case 'surah': return <SurahScreen />;
       case 'prayer': return <PrayerTimesScreen />;
@@ -165,11 +148,7 @@ export default function App() {
   const activeNav = isKidsMode ? kidsNav : standardNav;
 
   if (!userName) {
-    return (
-      <Suspense fallback={<LoadingFallback />}>
-        <OnboardingScreen />
-      </Suspense>
-    );
+    return <OnboardingScreen />;
   }
 
   return (
@@ -185,9 +164,7 @@ export default function App() {
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className="absolute inset-0 flex flex-col"
           >
-            <Suspense fallback={<LoadingFallback />}>
-              {getScreenContent()}
-            </Suspense>
+            {getScreenContent()}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -223,9 +200,7 @@ export default function App() {
       </nav>
 
         {/* Settings Drawer Overlay */}
-      <Suspense fallback={null}>
-        <SettingsDrawer />
-      </Suspense>
+      <SettingsDrawer />
 
       {/* Custom Alert Overlay */}
       <AlertModal />

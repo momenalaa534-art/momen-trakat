@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { useStore } from './store';
-import { challengesService } from './challengesService';
+import { useStore } from '../store';
+import { challengesService } from '../services/challengesService';
 import { useFirebaseAuth } from './useFirebaseAuth';
 
 export function useChallengeSync() {

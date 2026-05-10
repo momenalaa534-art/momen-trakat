@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
-import { useStore } from './store';
-import { useTranslation } from './i18n';
+import { useStore } from '../store';
+import { useTranslation } from '../i18n';
 
 export function useWirdReminder() {
   const { dailyWirdReminderEnabled, dailyWirdReminderTime, lastWirdReminderDate, setLastWirdReminderDate } = useStore();

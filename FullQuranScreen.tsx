@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useStore } from './store';
-import { TopBar } from './TopBar';
-import { SURAHS } from './quranSurahs';
+import { useStore } from '../store';
+import { TopBar } from '../components/TopBar';
+import { SURAHS } from '../data/quranSurahs';
 import { Search, BookmarkCheck, LayoutGrid, List, PlayCircle, Clock } from 'lucide-react';
-import { useTranslation } from './i18n';
+import { useTranslation } from '../i18n';
 
 import { Loader2 } from 'lucide-react';
 
@@ -55,15 +55,25 @@ export function FullQuranScreen() {
 
   const bookmarkedSurahs = SURAHS.filter(s => quranBookmarks[s.number] !== undefined);
 
+  const fullQuranTarget = useStore(s => s.fullQuranTarget);
+
   const openSurah = (index: number) => {
     setSelectedSurah(index);
-    navigate('surah');
+    if (fullQuranTarget === 'memorization') {
+      navigate('memorization');
+    } else {
+      navigate('surah');
+    }
   };
 
   const openAyah = (surahNumber: number, ayahNumber: number) => {
     setSelectedSurah(surahNumber);
     setSelectedAyahToScroll(ayahNumber);
-    navigate('surah');
+    if (fullQuranTarget === 'memorization') {
+      navigate('memorization');
+    } else {
+      navigate('surah');
+    }
   };
 
   // Find the last read surah (for demo we use the first bookmarked, or Al-Fatihah)

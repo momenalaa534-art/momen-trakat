@@ -1,10 +1,10 @@
-import { useStore } from './store';
-import { TopBar } from './TopBar';
+import { useStore } from '../store';
+import { TopBar } from '../components/TopBar';
 import { motion } from 'motion/react';
 import { useState } from 'react';
-import { useTranslation } from './i18n';
-import { playTasbihSound } from './audio';
-import { AITasbihModal } from './AITasbihModal';
+import { useTranslation } from '../i18n';
+import { playTasbihSound } from '../utils/audio';
+import { AITasbihModal } from '../components/AITasbihModal';
 import { Sparkles } from 'lucide-react';
 
 const DHIKR_LIST = {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useStore } from './store';
+import { useStore } from '../store';
 import { Sun, Moon, Compass, Bot, Gamepad2, Trophy, ArrowLeft, Settings, Calendar, BookOpen, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useTranslation } from './i18n';
+import { useTranslation } from '../i18n';
 
 export function HomeScreen() {
   const navigate = useStore((s) => s.navigate);
@@ -131,7 +131,10 @@ export function HomeScreen() {
               icon={<BookOpen className="text-gold mb-1" />} 
               title={t('home.learnQuran')} 
               sub={t('home.learnQuranSub')} 
-              onClick={() => navigate('full_quran')} 
+              onClick={() => {
+                useStore.getState().setFullQuranTarget('surah');
+                navigate('full_quran');
+              }} 
             />
             <Card 
               icon={<BookOpen className="text-gold mb-1" />} 
@@ -146,6 +149,13 @@ export function HomeScreen() {
               sub={language === 'ar' ? 'قصص الأنبياء والصحابة' : 'Islamic Stories & Lessons'} 
               badge={t('common.new')} 
               onClick={() => navigate('islamic_stories')} 
+            />
+            <Card 
+              icon={<BookOpen className="text-gold mb-1" />} 
+              title={language === 'ar' ? 'التدبر اليومي' : 'Daily Tadabbur'} 
+              sub={language === 'ar' ? 'تفسير ومعاني ولطائف' : 'Tafsir & Reflections'} 
+              badge={t('common.new')} 
+              onClick={() => navigate('tadabbur')} 
             />
           </div>
         </section>

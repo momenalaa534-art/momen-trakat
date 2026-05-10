@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
-import { useTranslation } from './i18n';
-import { allAthkarData } from './athkar';
-import { useStore } from './store';
+import { useTranslation } from '../i18n';
+import { allAthkarData } from '../data/athkar';
+import { useStore } from '../store';
 import { ChevronRight, ChevronLeft, Play, Pause, MoreHorizontal, Bell, BookText, Share, Copy, User, List, CheckSquare, Settings, Info, Share2 } from 'lucide-react';
 
 export type AthkarType = keyof typeof allAthkarData;

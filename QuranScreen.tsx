@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import { useStore } from './store';
-import { TopBar } from './TopBar';
+import { useStore } from '../store';
+import { TopBar } from '../components/TopBar';
 
 const SURAHS = [
   { num: '١', name: 'الفاتحة', ayat: 7, status: 'done' },

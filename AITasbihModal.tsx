@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Sparkles, Loader2 } from 'lucide-react';
-import { useTranslation } from './i18n';
+import { useTranslation } from '../i18n';
 import { GoogleGenAI } from '@google/genai';
-import { useStore } from './store';
+import { useStore } from '../store';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, SkipForward, SkipBack, Loader2 } from 'lucide-react';
-import { useTranslation } from './i18n';
+import { useTranslation } from '../i18n';
 
 interface StaticAudioPlayerProps {
   url: string;

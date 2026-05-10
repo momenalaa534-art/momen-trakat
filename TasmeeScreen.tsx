@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useStore } from './store';
-import { TopBar } from './TopBar';
+import { useStore } from '../store';
+import { TopBar } from '../components/TopBar';
 import { Mic } from 'lucide-react';
 
 const SURAH_DATA = [

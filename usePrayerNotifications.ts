@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useRef } from 'react';
-import { useStore } from './store';
-import { useTranslation } from './i18n';
-import { calculatePrayerTimes, formatTimePrefix } from './prayerTimes';
+import { useStore } from '../store';
+import { useTranslation } from '../i18n';
+import { calculatePrayerTimes, formatTimePrefix } from '../utils/prayerTimes';
 
 // Selected reliable Adhan URLs
 const ADHAN_URLS: Record<string, string> = {

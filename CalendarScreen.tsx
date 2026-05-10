@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useStore } from './store';
-import { TopBar } from './TopBar';
+import { useStore } from '../store';
+import { TopBar } from '../components/TopBar';
 
 export function CalendarScreen() {
   const language = useStore(s => s.language);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { useStore } from './store';
-import { useTranslation } from './i18n';
+import { useStore } from '../store';
+import { useTranslation } from '../i18n';
 import { Sparkles, Moon } from 'lucide-react';
 
 export function OnboardingScreen() {

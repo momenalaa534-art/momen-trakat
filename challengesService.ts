@@ -1,4 +1,4 @@
-import { db, handleFirestoreError, OperationType } from './firebase';
+import { db, handleFirestoreError, OperationType } from '../firebase';
 import { 
   collection, 
   doc, 

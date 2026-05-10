@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Goal, Target, Bookmark, CheckCircle2, ChevronRight, PlusCircle, Check, Smartphone, Book, Lock } from 'lucide-react';
-import { useStore, KhatmahType } from './store';
-import { TopBar } from './TopBar';
-import { JUZ_QUOTES } from './juzQuotes';
+import { useStore, KhatmahType } from '../store';
+import { TopBar } from '../components/TopBar';
+import { JUZ_QUOTES } from '../data/juzQuotes';
 
 export function KhatmahScreen() {
   const language = useStore(s => s.language);
@@ -18,6 +18,9 @@ export function KhatmahScreen() {
   
   const [activeTab, setActiveTab] = useState<KhatmahType>('reading');
 
+  const [pendingPlan, setPendingPlan] = useState<{id: string, days: number} | null>(null);
+  const [confirmCancel, setConfirmCancel] = useState(false);
+
   const tabs = [
     { id: 'reading', label: language === 'ar' ? 'قراءة' : 'Reading' },
     { id: 'memorization', label: language === 'ar' ? 'حفظ ومراجعة' : 'Memorization' },
@@ -31,8 +34,11 @@ export function KhatmahScreen() {
   ];
 
   const memPlans = [
-    { id: 'mem-365', days: 365, title_ar: 'حفظ في سنة', title_en: '1-Year Memorization', desc_ar: 'حفظ جزء كل ١٢ يوم تقريبا', desc_en: 'Memorize 1 Juz every ~12 days', icon: <Goal /> },
-    { id: 'mem-30', days: 30, title_ar: 'مراجعة مكثفة (٣٠ يوم)', title_en: 'Intensive Review (30 Days)', desc_ar: 'مراجعة جزء يومياً', desc_en: 'Review 1 Juz per day', icon: <CheckCircle2 /> },
+    { id: 'mem-180', days: 180, title_ar: 'حفظ في ٦ شهور', title_en: '6-Month Memorization', desc_ar: 'حفظ ٣ صفحات ونصف يومياً (٣.٣ صفحة / يوم)', desc_en: 'Memorize ~3.5 pages per day', icon: <Goal /> },
+    { id: 'mem-365', days: 365, title_ar: 'حفظ في سنة', title_en: '1-Year Memorization', desc_ar: 'حفظ صفحة ونصف يومياً زائد مراجعة (١.٦ صفحة / يوم)', desc_en: 'Memorize ~1.5 pages per day', icon: <Goal /> },
+    { id: 'mem-730', days: 730, title_ar: 'حفظ في سنتين', title_en: '2-Year Memorization', desc_ar: 'حفظ وجه (نصف صفحة) يومياً مع يومين للمراجعة أسبوعياً', desc_en: 'Memorize half page per day', icon: <Goal /> },
+    { id: 'mem-1095', days: 1095, title_ar: 'حفظ في ٣ سنوات', title_en: '3-Year Memorization', desc_ar: 'حفظ ثلث صفحة (٥ أسطر) يومياً', desc_en: 'Memorize 5 lines per day', icon: <Goal /> },
+    { id: 'mem-30', days: 30, title_ar: 'مراجعة مكثفة (٣٠ يوم)', title_en: 'Intensive Review (30 Days)', desc_ar: 'مراجعة جزء كامل يومياً (٢٠ صفحة / يوم)', desc_en: 'Review 1 Juz per day', icon: <CheckCircle2 /> },
   ];
 
   const tadabburPlans = [
@@ -43,16 +49,37 @@ export function KhatmahScreen() {
 
   const handleStartPlan = (id: string, days: number) => {
     if (activeKhatmah) {
-      const msg = language === 'ar' 
-        ? 'هل أنت متأكد من بدء خطة جديدة؟ سيتم إلغاء خطتك الحالية ولن تضاف إلى السجل.' 
-        : 'Are you sure you want to start a new plan? Your current plan will be canceled.';
-      if (!window.confirm(msg)) return;
+      setPendingPlan({ id, days });
+      return;
     }
     startKhatmah({
       id,
       type: activeTab,
       days
     });
+    
+    // Automatically set source to app and navigate for memorization tab
+    if (activeTab === 'memorization') {
+      setKhatmahSource('app');
+      navigate('memorization');
+    }
+  };
+
+  const confirmStartPlan = () => {
+    if (pendingPlan) {
+      startKhatmah({
+        id: pendingPlan.id,
+        type: activeTab,
+        days: pendingPlan.days
+      });
+      setPendingPlan(null);
+      
+      // Automatically set source to app and navigate for memorization tab
+      if (activeTab === 'memorization') {
+        setKhatmahSource('app');
+        navigate('memorization');
+      }
+    }
   };
 
   const checkCanLogExternal = () => {
@@ -104,7 +131,13 @@ export function KhatmahScreen() {
           {tabs.map(tab => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as KhatmahType)}
+              onClick={() => {
+                if (tab.id === 'tadabbur') {
+                  navigate('tadabbur');
+                } else {
+                  setActiveTab(tab.id as KhatmahType);
+                }
+              }}
               className={`px-6 py-3 rounded-full font-bold whitespace-nowrap transition-colors flex-1 ${
                 activeTab === tab.id ? 'bg-gold text-dark' : 'bg-mid text-light border border-border'
               }`}
@@ -152,6 +185,14 @@ export function KhatmahScreen() {
                      ? `تاريخ الانتهاء المتوقع: ${calculateCompletionDate()}` 
                      : `Expected completion: ${calculateCompletionDate()}`}
                  </p>
+                 
+                 {activeKhatmah.type === 'memorization' && (
+                   <p className="text-gold font-bold text-sm mb-6 relative z-10">
+                     {language === 'ar'
+                       ? `المقدار اليومي للحفظ: ${Math.max(0.5, Math.round((604 / activeKhatmah.days) * 10) / 10)} صفحة تقريبا`
+                       : `Daily Target: ~${Math.max(0.5, Math.round((604 / activeKhatmah.days) * 10) / 10)} pages`}
+                   </p>
+                 )}
     
                  <div className="relative z-10 mb-6">
                    <div className="flex justify-between text-sm mb-2">
@@ -201,11 +242,13 @@ export function KhatmahScreen() {
                      </div>
                    ) : activeKhatmah.source === 'app' ? (
                      <button 
-                       onClick={() => navigate('full_quran')}
+                       onClick={() => navigate(activeKhatmah.type === 'memorization' ? 'memorization' : 'full_quran')}
                        className="w-full bg-gold text-dark font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-md hover:bg-yellow-400 transition-colors active:scale-95"
                      >
                        <Smartphone size={20} />
-                       {language === 'ar' ? 'الذهاب للقراءة الآن' : 'Go Read Now'}
+                       {language === 'ar' 
+                          ? (activeKhatmah.type === 'memorization' ? 'الذهاب للحفظ الآن' : 'الذهاب للقراءة الآن')
+                          : (activeKhatmah.type === 'memorization' ? 'Go Memorize Now' : 'Go Read Now')}
                      </button>
                    ) : (
                      <button 
@@ -238,14 +281,35 @@ export function KhatmahScreen() {
            {/* Create New Plan */}
            {activeKhatmah && (
              <div className="flex justify-center -mt-2 mb-6">
-                <button 
-                   onClick={() => {
-                       window.confirm(language === 'ar' ? 'هل تود إلغاء الخطة الحالية وبدء خطة محتسبة من الصفر؟' : 'Cancel current plan and start from zero?') && cancelKhatmah();
-                   }}
-                   className="bg-red-500/10 text-red-500 font-bold py-2 px-6 rounded-xl text-xs hover:bg-red-500/20 transition-colors cursor-pointer"
-                 >
-                   {language === 'ar' ? 'إلغاء الخطة وبدء أخرى من الصفر' : 'Cancel and start new plan from zero'}
-                 </button>
+                {!confirmCancel ? (
+                  <button 
+                     onClick={() => setConfirmCancel(true)}
+                     className="bg-red-500/10 text-red-500 font-bold py-2 px-6 rounded-xl text-xs hover:bg-red-500/20 transition-colors cursor-pointer"
+                   >
+                     {language === 'ar' ? 'إلغاء الخطة وبدء أخرى من الصفر' : 'Cancel and start new plan from zero'}
+                   </button>
+                ) : (
+                  <div className="flex flex-wrap gap-2 items-center justify-center bg-red-500/10 py-3 px-6 rounded-xl w-full">
+                    <span className="text-red-500 text-xs font-bold w-full text-center mb-1">
+                      {language === 'ar' ? 'هل أنت متأكد من إلغاء الخطة الحالية؟' : 'Are you sure you want to cancel the current plan?'}
+                    </span>
+                    <button 
+                      onClick={() => {
+                          cancelKhatmah();
+                          setConfirmCancel(false);
+                      }}
+                      className="bg-red-500 text-white font-bold py-1.5 px-6 rounded-lg text-xs hover:bg-red-600 transition-colors"
+                    >
+                      {language === 'ar' ? 'تأكيد' : 'Confirm'}
+                    </button>
+                    <button 
+                      onClick={() => setConfirmCancel(false)}
+                      className="bg-dark/50 text-light font-bold py-1.5 px-6 rounded-lg text-xs hover:bg-dark transition-colors"
+                    >
+                      {language === 'ar' ? 'تراجع' : 'Cancel'}
+                    </button>
+                  </div>
+                )}
              </div>
            )}
            <h3 className="text-lg font-bold text-text mb-4">
@@ -266,6 +330,35 @@ export function KhatmahScreen() {
                />
              ))}
            </div>
+
+           {pendingPlan && (
+             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+               <div className="bg-mid border border-border rounded-2xl p-6 shadow-2xl max-w-sm w-full">
+                 <h3 className="text-xl font-bold text-text mb-2">
+                   {language === 'ar' ? 'تأكيد الخطة الجديدة' : 'Confirm New Plan'}
+                 </h3>
+                 <p className="text-light mb-6 opacity-90 text-sm leading-relaxed">
+                   {language === 'ar' 
+                     ? 'هل أنت متأكد من بدء خطة جديدة؟ سيتم إلغاء خطتك الحالية ولن تضاف إلى السجل.' 
+                     : 'Are you sure you want to start a new plan? Your current plan will be canceled and not added.'}
+                 </p>
+                 <div className="flex gap-3">
+                   <button 
+                     onClick={confirmStartPlan}
+                     className="flex-1 bg-gold text-dark font-bold py-3 rounded-xl hover:bg-yellow-400 transition-colors active:scale-95"
+                   >
+                     {language === 'ar' ? 'تأكيد' : 'Confirm'}
+                   </button>
+                   <button 
+                     onClick={() => setPendingPlan(null)}
+                     className="flex-1 bg-dark text-light font-bold py-3 rounded-xl border border-border hover:border-gold/50 transition-colors"
+                   >
+                     {language === 'ar' ? 'تراجع' : 'Cancel'}
+                   </button>
+                 </div>
+               </div>
+             </div>
+           )}
         </div>
       </div>
     </div>

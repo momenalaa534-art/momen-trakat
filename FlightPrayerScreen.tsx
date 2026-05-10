@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plane, MapPin, Clock, Loader2, Edit3, Navigation, AlertTriangle } from 'lucide-react';
-import { useStore } from './store';
-import { TopBar } from './TopBar';
+import { useStore } from '../store';
+import { TopBar } from '../components/TopBar';
 import { Coordinates, CalculationMethod, PrayerTimes } from 'adhan';
 import { motion, AnimatePresence } from 'motion/react';
 

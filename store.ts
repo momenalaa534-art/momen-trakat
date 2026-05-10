@@ -6,7 +6,7 @@ export type Screen =
   | 'kids' | 'quran' | 'tasmee' | 'hadith' 
   | 'challenges' | 'rewards' | 'ai' | 'full_quran' | 'surah' | 'prayer' | 'hadith_library' | 'islamic_stories'
   | 'more' | 'on_this_day' | 'qibla' | 'calendar' | 'flight_prayer' | 'khatmah' | 'happiness_wheel' | 'memorization'
-  | 'athkar_categories' | 'athkar_morning' | 'athkar_evening' | 'athkar_after_prayer' | 'athkar_sleep' | 'athkar_waking_up' | 'athkar_food' | 'athkar_fasting'
+  | 'athkar_categories' | 'athkar_morning' | 'athkar_evening' | 'athkar_after_prayer' | 'athkar_sleep' | 'athkar_waking_up' | 'athkar_food' | 'athkar_fasting' | 'tadabbur'
   | 'athkar_travel' | 'athkar_mosque' | 'athkar_wudu' | 'athkar_home' | 'athkar_distress'
   | 'athkar_prayer' | 'athkar_adhan' | 'athkar_clothes' | 'athkar_toilet' | 'athkar_ruqyah';
 
@@ -43,7 +43,12 @@ interface AppState {
   selectedSurah: number | null;
   selectedAyahToScroll: number | null;
   quranBookmarks: Record<number, number>; // surahId -> ayahNumber
+  tadabburPage: number;
+  tadabburTheme: 'light' | 'dark' | 'cream';
+  tadabburFont: 'amiri' | 'cairo' | 'sans';
+  tadabburFontSize: number;
   joinedChallenges: string[]; // List of challenge codes
+  fullQuranTarget: 'surah' | 'memorization';
 
   quranTheme: 'light' | 'dark' | 'cream';
   quranFont: 'amiri' | 'madinah' | 'hafs';
@@ -100,6 +105,7 @@ interface AppState {
   khatmahHistory: KhatmahPlan[];
 
   navigate: (screen: Screen) => void;
+  setFullQuranTarget: (target: 'surah' | 'memorization') => void;
 
   goBack: () => void;
   addXp: (amount: number) => void;
@@ -112,6 +118,10 @@ interface AppState {
   setSelectedSurah: (index: number | null) => void;
   setSelectedAyahToScroll: (index: number | null) => void;
   setQuranBookmark: (surahId: number, ayahNumber: number) => void;
+  setTadabburPage: (page: number) => void;
+  setTadabburTheme: (theme: 'light' | 'dark' | 'cream') => void;
+  setTadabburFont: (font: 'amiri' | 'cairo' | 'sans') => void;
+  setTadabburFontSize: (size: number) => void;
   setQuranTheme: (theme: 'light' | 'dark' | 'cream') => void;
   setQuranFont: (font: 'amiri' | 'madinah' | 'hafs') => void;
   setQuranTajweed: (enabled: boolean) => void;
@@ -189,7 +199,12 @@ export const useStore = create<AppState>()(
       selectedSurah: null,
       selectedAyahToScroll: null,
       quranBookmarks: {},
+      tadabburPage: 1,
+      tadabburTheme: 'cream',
+      tadabburFont: 'amiri',
+      tadabburFontSize: 16,
       joinedChallenges: [],
+      fullQuranTarget: 'surah',
       quranTheme: 'cream',
       quranFont: 'amiri',
       quranTajweed: true,
@@ -235,6 +250,8 @@ export const useStore = create<AppState>()(
           screenHistory: newHistory,
         };
       }),
+
+      setFullQuranTarget: (target) => set({ fullQuranTarget: target }),
 
       goBack: () => set((state) => {
         if (state.screenHistory.length === 0) return { currentScreen: 'home' };
@@ -298,6 +315,10 @@ export const useStore = create<AppState>()(
       setQuranBookmark: (surahId, ayahNumber) => set((state) => ({
         quranBookmarks: { ...state.quranBookmarks, [surahId]: ayahNumber }
       })),
+      setTadabburPage: (p) => set({ tadabburPage: p }),
+      setTadabburTheme: (t) => set({ tadabburTheme: t }),
+      setTadabburFont: (f) => set({ tadabburFont: f }),
+      setTadabburFontSize: (s) => set({ tadabburFontSize: s }),
       setQuranTheme: (t) => set({ quranTheme: t }),
       setQuranFont: (f) => set({ quranFont: f }),
       setQuranTajweed: (t) => set({ quranTajweed: t }),
@@ -480,6 +501,10 @@ export const useStore = create<AppState>()(
         ttsCredits: state.ttsCredits,
         lastTtsCreditResetDate: state.lastTtsCreditResetDate,
         quranBookmarks: state.quranBookmarks,
+        tadabburPage: state.tadabburPage,
+        tadabburTheme: state.tadabburTheme,
+        tadabburFont: state.tadabburFont,
+        tadabburFontSize: state.tadabburFontSize,
         joinedChallenges: state.joinedChallenges,
         quranTheme: state.quranTheme,
         quranFont: state.quranFont,

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { X, Check, Download, Share2, Facebook, Twitter, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { toPng } from "html-to-image";
-import { SHARE_CARD_STYLES } from "./shareStyles";
+import { SHARE_CARD_STYLES } from "../utils/shareStyles";
 
 interface ShareImageModalProps {
   isOpen: boolean;
@@ -10,7 +10,7 @@ interface ShareImageModalProps {
   text: string;
   title: string;
   subtitle: string;
-  type: "ayah" | "hadith" | "dua" | "azkar";
+  type: "ayah" | "hadith" | "dua" | "azkar" | "tadabbur";
   language: "ar" | "en" | "fr";
 }
 
@@ -36,6 +36,8 @@ export function ShareImageModal({
         return language === "ar" ? "دعاء" : "Supplication (Dua)";
       case "azkar":
         return language === "ar" ? "ذكر" : "Remembrance (Dhikr)";
+      case "tadabbur":
+        return language === "ar" ? "تدبر قرآني" : "Quranic Tadabbur";
     }
   };
 

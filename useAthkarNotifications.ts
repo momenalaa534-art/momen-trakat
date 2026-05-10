@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useStore } from './store';
-import { useTranslation } from './i18n';
+import { useStore } from '../store';
+import { useTranslation } from '../i18n';
 
 // Simple beep for devices that don't have default notification sounds
 function playNotificationSound() {

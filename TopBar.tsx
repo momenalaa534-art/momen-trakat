@@ -1,6 +1,6 @@
 import { ArrowRight, ArrowLeft, Star } from 'lucide-react';
-import { useStore } from './store';
-import { useTranslation } from './i18n';
+import { useStore } from '../store';
+import { useTranslation } from '../i18n';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
 

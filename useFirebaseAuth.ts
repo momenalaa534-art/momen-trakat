@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged, User, signInWithPopup, GoogleAuthProvider, signOut, signInAnonymously } from 'firebase/auth';
-import { auth, db } from './firebase'; // Assuming I create this
+import { auth, db } from '../firebase'; // Assuming I create this
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
-import { useStore } from './store';
+import { useStore } from '../store';
 
 export function useFirebaseAuth() {
   const [user, setUser] = useState<User | null>(null);

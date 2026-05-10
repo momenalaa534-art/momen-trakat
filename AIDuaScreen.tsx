@@ -1,11 +1,11 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useStore } from './store';
-import { TopBar } from './TopBar';
-import { useTranslation } from './i18n';
+import { useStore } from '../store';
+import { TopBar } from '../components/TopBar';
+import { useTranslation } from '../i18n';
 import { GoogleGenAI } from '@google/genai';
 import { Sparkles, Loader2, ArrowRight, Share2, ChevronLeft, X } from 'lucide-react';
-import { ShareImageModal } from './ShareImageModal';
+import { ShareImageModal } from '../components/ShareImageModal';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
