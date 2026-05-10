@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-gold: var(--th-gold);
+  --color-dark: var(--th-dark);
+  --color-mid: var(--th-mid);
+  --color-border: var(--th-border);
+  --color-light: var(--th-light);
+  --color-text: var(--th-text);
+  --color-green: var(--th-green);
+  --color-red: var(--th-red);
+}
+
+:root {
+  --th-gold: #C9A227;
+  --th-dark: #0f2419;
+  --th-mid: #1a3a2a;
+  --th-border: #2d5a3d;
+  --th-light: #6a9a7a;
+  --th-text: #e8d9a0;
+  --th-green: #4caf50;
+  --th-red: #e53935;
+}
+
+:root.light-theme, body.light-theme {
+  --th-dark: #f0f7f4;
+  --th-mid: #ffffff;
+  --th-border: #cde0d2;
+  --th-light: #527c62;
+  --th-text: #0f2419;
+  --th-gold: #b38b18;
+  --th-green: #388e3c;
+  --th-red: #d32f2f;
+}
+
+body {
+  font-family: 'Cairo', Arial, sans-serif;
+  background-color: var(--color-dark);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  transition: font-size 0.3s ease;
+}
+
+html.font-sm { font-size: 14px; }
+html.font-md { font-size: 16px; }
+html.font-lg { font-size: 18px; }
+
+.font-amiri { font-family: 'Amiri', serif; }
+.font-amiri-quran { font-family: 'Amiri Quran', serif; }

@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "Challenge": {
+      "title": "Challenge",
+      "description": "A challenge group created by a user.",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "description": "Unique 6-character code." },
+        "name": { "type": "string", "description": "Name of the challenge." },
+        "ownerId": { "type": "string", "description": "UID of the user who created it." },
+        "durationDays": { "type": "number", "description": "Duration of the challenge in days." },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "endsAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "name", "ownerId", "durationDays", "createdAt", "endsAt"]
+    },
+    "ChallengeMember": {
+      "title": "ChallengeMember",
+      "description": "A user participating in a challenge.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "xp": { "type": "number" },
+        "joinedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userName", "xp", "joinedAt"]
+    }
+  },
+  "firestore": {
+    "/challenges/{challengeId}": {
+      "schema": { "$ref": "#/entities/Challenge" },
+      "description": "Stores challenge details."
+    },
+    "/challenges/{challengeId}/members/{userId}": {
+      "schema": { "$ref": "#/entities/ChallengeMember" },
+      "description": "Stores member progress for a challenge."
+    }
+  }
+}
