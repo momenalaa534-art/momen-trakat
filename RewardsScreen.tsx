@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
-import { useTranslation } from '../i18n';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
+import { useTranslation } from './i18n';
 import { Flame, Medal, BookOpen, Clock, Heart, Award, Sparkles, TrendingUp } from 'lucide-react';
 
 type ReportPeriod = 'daily' | 'weekly' | 'monthly';

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { useStore } from "../store";
-import { JUZ_QUOTES } from "../data/juzQuotes";
+import { useStore } from "./store";
+import { JUZ_QUOTES } from "./juzQuotes";
 import {
   ArrowLeft,
   ArrowRight,
@@ -23,9 +23,9 @@ import {
   Target,
   Repeat,
 } from "lucide-react";
-import { SURAHS } from "../data/quranSurahs";
-import { useTranslation } from "../i18n";
-import { renderTajweed } from "../utils/tajweedParser";
+import { SURAHS } from "./quranSurahs";
+import { useTranslation } from "./i18n";
+import { renderTajweed } from "./tajweedParser";
 
 interface Ayah {
   number: number;
@@ -35,8 +35,8 @@ interface Ayah {
   audio?: string;
 }
 
-import { ShareImageModal } from "../components/ShareImageModal";
-import { fetchWithCache, downloadSurahAudio, checkSurahDownloaded } from "../utils/quranCache";
+import { ShareImageModal } from "./ShareImageModal";
+import { fetchWithCache, downloadSurahAudio, checkSurahDownloaded } from "./quranCache";
 
 export function SurahScreen() {
   const selectedSurah = useStore((s) => s.selectedSurah);

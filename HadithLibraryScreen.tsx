@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Book, Bot, Sparkles, ChevronLeft, Search, Loader2, BookOpen, Share2 } from 'lucide-react';
-import { ShareImageModal } from "../components/ShareImageModal";
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
-import { useTranslation } from '../i18n';
+import { ShareImageModal } from "./ShareImageModal";
+import { useStore } from './store';
+import { TopBar } from './TopBar';
+import { useTranslation } from './i18n';
 import { GoogleGenAI } from '@google/genai';
 
 // Initialize Gemini

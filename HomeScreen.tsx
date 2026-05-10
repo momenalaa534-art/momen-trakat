@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useStore } from '../store';
+import { useStore } from './store';
 import { Sun, Moon, Compass, Bot, Gamepad2, Trophy, ArrowLeft, Settings, Calendar, BookOpen, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useTranslation } from '../i18n';
+import { useTranslation } from './i18n';
 
 export function HomeScreen() {
   const navigate = useStore((s) => s.navigate);

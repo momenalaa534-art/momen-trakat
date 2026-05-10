@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Smile, Share2, Sparkles, RefreshCw } from 'lucide-react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
 import html2canvas from 'html2canvas';
 
 const MESSAGES_AR = [

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useStore } from '../store';
+import { useStore } from './store';
 import { motion } from 'motion/react';
 import { Mic, MessageSquare, BookOpen, Trophy, LogOut } from 'lucide-react';
-import { useTranslation } from '../i18n';
+import { useTranslation } from './i18n';
 
 export function KidsHomeScreen() {
   const navigate = useStore(s => s.navigate);

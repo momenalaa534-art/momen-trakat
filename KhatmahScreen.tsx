@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Goal, Target, Bookmark, CheckCircle2, ChevronRight, PlusCircle, Check, Smartphone, Book, Lock } from 'lucide-react';
-import { useStore, KhatmahType } from '../store';
-import { TopBar } from '../components/TopBar';
-import { JUZ_QUOTES } from '../data/juzQuotes';
+import { useStore, KhatmahType } from './store';
+import { TopBar } from './TopBar';
+import { JUZ_QUOTES } from './juzQuotes';
 
 export function KhatmahScreen() {
   const language = useStore(s => s.language);
