@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Search, Loader2, BookOpen, Share2, Filter, Users, X, Image as ImageIcon, Type, Download, Settings2, Play, Pause, SkipForward, SkipBack, Highlighter } from 'lucide-react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
 import { GoogleGenAI } from '@google/genai';
-import { StoryReader } from '../components/StoryReader';
-import { getLocalStory } from '../data/islamicStories';
-import { MORE_SAHABA, MORE_SAHABIYAT, MORE_TABIUN, getDailyItems } from '../utils/dailyStories';
+import { StoryReader } from './StoryReader';
+import { getLocalStory } from './islamicStories';
+import { MORE_SAHABA, MORE_SAHABIYAT, MORE_TABIUN, getDailyItems } from './dailyStories';
 import html2canvas from 'html2canvas';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });

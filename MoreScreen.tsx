@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { CalendarDays, Compass, Map, Plane, BookOpen, Smile, Mic, ChevronLeft } from 'lucide-react';
-import { useStore } from '../store';
+import { useStore } from './store';
 
 const TOOLS = [
   { id: 'on_this_day', name: { ar: 'حدث في مثل هذا اليوم', en: 'On This Day' }, icon: CalendarDays, color: 'text-blue-400', bg: 'bg-blue-400/10' },

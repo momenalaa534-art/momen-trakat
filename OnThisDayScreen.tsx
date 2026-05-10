@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { CalendarDays, Loader2, Sparkles, Globe, BookOpen } from 'lucide-react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
 import { GoogleGenAI } from '@google/genai';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
-import { SURAHS } from '../data/quranSurahs';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
+import { SURAHS } from './quranSurahs';
 import { Search, BookmarkCheck, LayoutGrid, List, PlayCircle, Clock } from 'lucide-react';
-import { useTranslation } from '../i18n';
+import { useTranslation } from './i18n';
 
 import { Loader2 } from 'lucide-react';
 

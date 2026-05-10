@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { X, Check, Download, Share2, Facebook, Twitter, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { toPng } from "html-to-image";
-import { SHARE_CARD_STYLES } from "../utils/shareStyles";
+import { SHARE_CARD_STYLES } from "./shareStyles";
 
 interface ShareImageModalProps {
   isOpen: boolean;

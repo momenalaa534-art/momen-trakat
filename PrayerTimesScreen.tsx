@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Bell, BellOff, Music, Moon, Volume2, User, ChevronLeft, MapPin, Calculator, Clock } from 'lucide-react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
-import { useTranslation } from '../i18n';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
+import { useTranslation } from './i18n';
 
 export function PrayerTimesScreen() {
   const { t, language } = useTranslation();

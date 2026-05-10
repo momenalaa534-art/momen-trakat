@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStore, AppTheme, AppLanguage, AppFontSize } from '../store';
+import { useStore, AppTheme, AppLanguage, AppFontSize } from './store';
 import { motion, AnimatePresence } from 'motion/react';
 import { Settings, X, Globe, Moon, Sun, Type, Share2, Star, Info, MessageCircle, Heart, Bell, Volume2, Monitor, BookOpen, Clock, LogOut } from 'lucide-react';
 

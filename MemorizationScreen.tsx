@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Repeat, Mic, Eye, EyeOff, CheckCircle, Loader2 } from 'lucide-react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
 
 const AL_FATIHA = [
   { id: 1, text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", audio: "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3" },

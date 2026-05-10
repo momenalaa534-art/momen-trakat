@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Sun, Moon, Coffee, MoonStar, Utensils, BookHeart, ChevronLeft, Droplets, Plane, Home, ShieldAlert, Waves, Mic, Shirt, Bath, HeartPulse } from 'lucide-react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
-import { useTranslation } from '../i18n';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
+import { useTranslation } from './i18n';
 
 export function AthkarCategoriesScreen() {
   const { t, language } = useTranslation();

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Share2, BookOpen, Settings2, Play, Pause, SkipForward, SkipBack, Loader2, Highlighter, Check } from 'lucide-react';
 import { GoogleGenAI } from '@google/genai';
-import { useStore } from '../store';
+import { useStore } from './store';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 

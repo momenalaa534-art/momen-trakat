@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { useStore } from '../store';
-import { TopBar } from '../components/TopBar';
-import { useFirebaseAuth } from '../hooks/useFirebaseAuth';
-import { challengesService, Challenge, ChallengeMember } from '../services/challengesService';
-import { useTranslation } from '../i18n';
+import { useStore } from './store';
+import { TopBar } from './TopBar';
+import { useFirebaseAuth } from './useFirebaseAuth';
+import { challengesService, Challenge, ChallengeMember } from './challengesService';
+import { useTranslation } from './i18n';
 import { Users, Plus, LogIn, Trophy, Clock, Share2, ClipboardCopy } from 'lucide-react';
 
 export function ChallengesScreen() {
