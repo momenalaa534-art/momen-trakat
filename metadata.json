@@ -1,6 +1,5 @@
 {
-  "name": "أذكاري (Athkari)",
-  "description": "تطبيق متكامل للأذكار اليومية، تسميع القرآن، مسابقات الأحاديث، وتحديات عائلية لتعزيز العبادة.",
-  "requestFramePermissions": [],
-  "majorCapabilities": []
+  "name": "Remix: Remix:  تريكات لهندسة اوامر قصص الكرتون",
+  "description": "A comprehensive prompt engineering tool for cartoon story creation. Generates detailed character profiles, scene-by-scene image prompts, animation guides, and dialogue scripts based on your story concept and style preferences.",
+  "requestFramePermissions": []
 }
